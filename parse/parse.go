@@ -27,12 +27,12 @@ var header = []byte(`
 var (
 	packageKeyword = []byte("package")
 	importKeyword  = []byte("import")
-	openBrace      = []byte("(")
-	closeBrace     = []byte(")")
+	openBrace	   = []byte("(")
+	closeBrace	   = []byte(")")
 	genericPackage = "generic"
-	genericType    = "generic.Type"
+	genericType	   = "generic.Type"
 	genericNumber  = "generic.Number"
-	linefeed       = "\r\n"
+	linefeed	   = "\r\n"
 )
 var unwantedLinePrefixes = [][]byte{
 	[]byte("//go:generate genny "),
@@ -199,7 +199,6 @@ func Generics(filename, pkgName string, in io.ReadSeeker, typeSets []map[string]
 			if bytes.HasSuffix(scanner.Bytes(), closeBrace) {
 				insideImportBlock = false
 			}
-			continue
 		}
 
 		if bytes.HasPrefix(scanner.Bytes(), packageKeyword) {
@@ -212,7 +211,6 @@ func Generics(filename, pkgName string, in io.ReadSeeker, typeSets []map[string]
 			if bytes.HasSuffix(scanner.Bytes(), openBrace) {
 				insideImportBlock = true
 			}
-			continue
 		}
 
 		// check all unwantedLinePrefixes - and skip them
@@ -235,7 +233,6 @@ func Generics(filename, pkgName string, in io.ReadSeeker, typeSets []map[string]
 
 	output := []byte(cleanOutput)
 	var err error
-
 	// change package name
 	if pkgName != "" {
 		output = changePackage(bytes.NewReader([]byte(output)), pkgName)
